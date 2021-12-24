@@ -9,5 +9,6 @@
 
 # SQL schema 
 
-![QuickDBD-Free Diagram](https://user-images.githubusercontent.com/83611005/147292603-66b9950b-df58-4072-8331-63f4a3d8b53c.png)
 
+
+![QuickDBD-Free Diagram](https://user-images.githubusercontent.com/83611005/147301615-d88df851-d23a-48e8-b260-ed762e95c294.png)
