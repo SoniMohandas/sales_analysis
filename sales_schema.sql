@@ -1,34 +1,75 @@
 
-SELECT * FROM sales;
+DROP TABLE IF EXISTS "customer";
+CREATE TABLE "customer" (
+    "customer_id" INT   NOT NULL,
+    "first_name" VARCHAR(40)   NOT NULL,
+    "middle_name" VARCHAR(40),
+    "last_name" VARCHAR(40)   NOT NULL,
+    "segment" VARCHAR(25),
+    "order_id" INT   NOT NULL,
+    CONSTRAINT "pk_customer" PRIMARY KEY (
+        "customer_id"
+     )
+);
 
-DROP TABLE IF EXISTS customer;
-SELECT customer_id, first_name, middle_name, last_name, segment
-INTO customer FROM sales;
+DROP TABLE IF EXISTS "orders";
+CREATE TABLE "orders" (
+    "order_id" INT   NOT NULL,
+    "order_date" DATE   NOT NULL,
+    "product_id" INT   NOT NULL,
+    CONSTRAINT "pk_order" PRIMARY KEY (
+        "order_id"
+     )
+);
 
-DROP TABLE IF EXISTS address;
-SELECT postal_code, city, state, country, region, customer_id
-INTO address FROM sales;
+DROP TABLE IF EXISTS "shipping";
+CREATE TABLE "shipping" (
+    "ship_id" INT   NOT NULL,
+    "ship_date" DATE   NOT NULL,
+    "ship_mode" VARCHAR(25),
+    "zip_code" INT   NOT NULL,
+    CONSTRAINT "pk_shipping" PRIMARY KEY (
+        "ship_id"
+     )
+);
 
-DROP TABLE IF EXISTS product;
-SELECT product_id, product_name, category, sub_category
-INTO product FROM sales;
+DROP TABLE IF EXISTS "address";
+CREATE TABLE "address" (
+    "postal_code" INT   NOT NULL,
+    "city" VARCHAR(60)   NOT NULL,
+    "state" VARCHAR(60)   NOT NULL,
+    "country" VARCHAR(60)   NOT NULL,
+    "region" VARCHAR(60)   NOT NULL,
+    "customer_id" INT   NOT NULL,
+    CONSTRAINT "pk_address" PRIMARY KEY (
+        "postal_code"
+     )
+);
 
-DROP TABLE IF EXISTS orders;
-SELECT order_id, order_date, product_id
-INTO orders FROM sales;
+DROP TABLE IF EXISTS "product";
+CREATE TABLE "product" (
+    "product_id" INT   NOT NULL,
+    "product_name" VARCHAR(80)   NOT NULL,
+    "category" VARCHAR(50)   NOT NULL,
+    "sub_category" VARCHAR(50)   NOT NULL,
+    "sales_id" INT   NOT NULL,
+    CONSTRAINT "pk_product" PRIMARY KEY (
+        "product_id"
+     )
+);
 
-DROP TABLE IF EXISTS shipping;
-SELECT ship_date, ship_mode, postal_code
-INTO shipping FROM sales;
-
-ALTER TABLE sales DROP COLUMN row_id, DROP COLUMN order_id, DROP COLUMN order_date, 
-DROP COLUMN ship_date, DROP COLUMN ship_mode, DROP COLUMN customer_id, DROP COLUMN customer_name,
-DROP COLUMN segment, DROP COLUMN country, DROP COLUMN city, DROP COLUMN state, 
-DROP COLUMN postal_code, DROP COLUMN region, DROP COLUMN product_id, DROP COLUMN category,
-DROP COLUMN sub_category, DROP COLUMN product_name, DROP COLUMN first_name, 
-DROP COLUMN last_name, DROP COLUMN middle_name;
-
-
+DROP TABLE IF EXISTS "sales";
+CREATE TABLE "sales" (
+    "sales_id" INT   NOT NULL,
+    "sale_price" FLOAT   NOT NULL,
+    "quantity" INT   NOT NULL,
+    "discount" FLOAT   NOT NULL,
+    "profit" FLOAT   NOT NULL,
+    "ship_id" INT   NOT NULL,
+    CONSTRAINT "pk_sales" PRIMARY KEY (
+        "sales_id"
+     )
+);
 
 ALTER TABLE "customer" ADD CONSTRAINT "fk_customer_customer_id" FOREIGN KEY("customer_id")
 REFERENCES "address" ("customer_id");
